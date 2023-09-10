@@ -15,7 +15,7 @@ abstract class Polynome {
     abstract fun findRoots(epsilon: Double, time: Duration, step: Double): Array<Double>
 
 
-    private fun findRoot(epsilon: Double, segment: Segment, startTime: Instant, time: Duration): Double {
+    protected fun findRoot(epsilon: Double, segment: Segment, startTime: Instant, time: Duration): Double {
         assert(epsilon > 0)
 
         if (compute(segment.a).sign == compute(segment.b).sign) {
@@ -68,7 +68,7 @@ abstract class Polynome {
         epsilon: Double, seg: NegativeInfiniteSegment, startTime: Instant, time: Duration, step: Double
     ): Double {
         val computed = compute(seg.b)
-        if (computed.sign > 0) {
+        if (computed.sign == compute(seg.a)) {
             throw NoRootsException("left vertex of parabola, end point is not lower than 0 yet, no roots")
         }
 
