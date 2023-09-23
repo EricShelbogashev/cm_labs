@@ -8,7 +8,7 @@ import java.time.Instant
 import kotlin.math.absoluteValue
 import kotlin.math.pow
 
-class Twolynome(private val a: Double, private val b: Double) : Polynome() {
+open class Twolynome(private val a: Double, private val b: Double) : Polynome() {
 
     companion object {
         fun fromNonCanonical(a: Double, b: Double, c: Double): Twolynome {
@@ -17,7 +17,7 @@ class Twolynome(private val a: Double, private val b: Double) : Polynome() {
     }
 
     private val discriminant: Double = a.pow(2) - 4 * b
-    protected val vertex: Double = -a / 2
+    private val vertex: Double = -a / 2
 
     override fun compute(x: Double): Double = x.pow(2) + a * x + b
 

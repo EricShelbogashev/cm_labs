@@ -30,16 +30,18 @@ abstract class Polynome {
 
         while (startTime.plusMillis(time.toMillis()).isAfter(Instant.now())) {
             val middle = segment.middle()
-            val computed = compute(middle)
+            val middleValue = compute(middle)
 
-            if (computed.absoluteValue < epsilon) {
+            if (middleValue.absoluteValue < epsilon) {
                 return middle
             }
 
-            if (compute(segment.a).sign != computed.sign) {
-                segment = Segment(segment.a, middle)
-            } else if (computed.sign != compute(segment.b).sign) {
-                segment = Segment(middle, segment.b)
+            segment = if (compute(segment.a).sign != middleValue.sign) {
+                Segment(segment.a, middle)
+            } else if (middleValue.sign != compute(segment.b).sign) {
+                Segment(middle, segment.b)
+            } else {
+                throw IllegalStateException("sign in the left and right to middle is equals with the middle : not monotonic")
             }
         }
         throw TimeoutException("time is over")
@@ -49,7 +51,7 @@ abstract class Polynome {
         epsilon: Double, seg: PositiveInfiniteSegment, startTime: Instant, time: Duration, step: Double
     ): Double {
         val computed = compute(seg.a)
-        if (computed.sign > 0) {
+        if (computed.sign == compute(seg.b)) {
             throw NoRootsException("right vertex of parabola, start point already is greater than 0, no roots")
         }
 
