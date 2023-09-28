@@ -342,6 +342,43 @@ fun `test 16`() {
     println("\n")
 }
 
+fun `test 17`() {
+    val a = -0.998
+    val b = -7.998
+    val c = 11.988
+    val epsilon = 1E-5
+    ColorPrinter.printTestLn(17, "[$a] [$b] [$c] [$epsilon]", ColorPrinter.Color.YELLOW)
+
+    val polynomial = Threelynome(a, b, c)
+
+    polynomial.findRoots(
+        epsilon,
+        Duration.ofSeconds(3),
+        0.5
+    ).forEach { print("$it ") }
+
+    println("\n")
+}
+
+fun `test 18`() {
+    val a = -0.998
+    val b = -7.998
+    val c = 11.988
+    val epsilon = 1E-6
+    ColorPrinter.printTestLn(18, "[$a] [$b] [$c] [$epsilon]", ColorPrinter.Color.YELLOW)
+
+    val polynomial = Threelynome(a, b, c)
+
+    polynomial.findRoots(
+        epsilon,
+        Duration.ofSeconds(3),
+        0.5
+    ).forEach { print("$it ") }
+
+    println("\n")
+}
+
+
 fun tests() {
     `test 1`()
     `test 2`()
@@ -361,6 +398,8 @@ fun tests() {
     `test 14`()
     `test 15`()
     `test 16`()
+    `test 17`()
+    `test 18`()
 }
 
 fun main() {
